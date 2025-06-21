@@ -1,77 +1,51 @@
-# Redes-Calculadora
-# Ip-calculator
-Simple react project for a static page that calculates IP's and subnets
-In order to install just do the usual, npm i and then npm start for running it
-=======
-# Getting Started with Create React App
+# Subnet Calculator subnet-calculator  subnet-calculator
+<div align="center">
+  <img src="URL_DEL_GIF_O_IMAGEN_AQUI" alt="Demostración de la Calculadora de Subredes" width="600"/>
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📝 Descripción
 
-## Available Scripts
+**Subnet Calculator** es una herramienta web sencilla y eficaz, creada con React, para realizar cálculos de redes IPv4. Permite a los administradores de redes, estudiantes y entusiastas de TI planificar y analizar direccionamiento IP de forma rápida y sin errores.
 
-In the project directory, you can run:
+## ✨ Características
 
-### `npm start`
+- **Cálculo de Dirección de Red:** Obtiene la dirección de inicio de la subred.
+- **Rango de Hosts:** Determina el rango de direcciones IP utilizables para los dispositivos.
+- **Dirección de Broadcast:** Calcula la dirección de broadcast de la subred.
+- **Máscara de Subred:** Soporta notación decimal (ej. 255.255.255.0) y CIDR (ej. /24).
+- **Cálculos de VLSM:** (Variable Length Subnet Masking) para una planificación de red eficiente.
+- **Interfaz Intuitiva:** Diseño limpio y fácil de usar para obtener resultados al instante.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Instalación y Uso
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Sigue estos pasos para ejecutar el proyecto en tu máquina local:
 
-### `npm test`
+1.  **Clona el repositorio:**
+    ```bash
+    git clone https://github.com/Asaph-Velazquez/Subnet-Calculator.git
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2.  **Navega al directorio del proyecto:**
+    ```bash
+    cd Subnet-Calculator
+    ```
 
-### `npm run build`
+3.  **Instala las dependencias:**
+    ```bash
+    npm install
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4.  **Inicia la aplicación:**
+    ```bash
+    npm start
+    ```
+    La aplicación se abrirá en [http://localhost:3000](http://localhost:3000).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ Tecnologías Utilizadas
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [React](https://reactjs.org/) - Biblioteca de JavaScript para construir interfaces de usuario.
+- [Tailwind CSS](https://tailwindcss.com/) - Framework de CSS para un diseño rápido y moderno (si aplica).
+- [CSS Modules](https://github.com/css-modules/css-modules) - Para estilos encapsulados por componente.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> 35c2560 (Initialize project using Create React App)
-# IP-Calculator
+---
+Creado con ❤️ por [Asaph Velazquez](https://github.com/Asaph-Velazquez)
