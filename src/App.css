@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Resetea los márgenes, rellenos y establece box-sizing para todos los elementos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estiliza el elemento body con tema oscuro */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0f172a; /* Fondo azul oscuro */
+  color: #e2e8f0; /* Color de texto claro para contraste */
+}
+
+/* Contenedor principal de la aplicación */
+.app-container {
+  min-height: 97vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Contenedor del título */
+.title-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: #1e293b; /* Fondo azul más claro */
+  text-align: center;
+  border-bottom: 1px solid #334155;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+/* Estilo del título */
+.title-container h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #60a5fa; /* Color azul claro para el título */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor principal para las secciones */
+.content-wrapper {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  flex: 1;
+  background-color: #1e293b;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+
+/* Sección de entrada */
+.input-section {
+  display: flex;
+  width: 90%;
+  padding: 1.5rem;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  transition: width 0.5s ease;
+  background-color: #1e293b;
+}
+
+/* Columnas para instrucciones y campos de entrada */
+.instructions-column,
+.input-column {
+  flex: 1;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1e293b;
+}
+
+/* Contenedor de las instrucciones */
+.instructions {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: #0f172a;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+/* Contenedor de los campos de entrada */
+.input-fields {
+  width: 100%;
+  max-width: 320px;
+  font-size: 0.9rem;
+  background-color: #0f172a;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+/* Texto de bienvenida */
+.welcome {
+  font-size: 1rem;
+  color: #94a3b8;
+  text-align: justify;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Contenedor de la guía */
+.guide {
+  margin-bottom: 1.5rem;
+  color: #94a3b8;
+}
+
+/* Título de la guía */
+.guide h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #60a5fa;
+  margin-bottom: 0.75rem;
+}
+
+/* Texto de la guía */
+.guide p {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.5;
+}
+
+/* Texto que solicita datos */
+.data-prompt {
+  width: 100%;
+  max-width: 400px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #60a5fa;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+/* Botón de calcular */
+.calculate-button {
+  width: 100%;
+  max-width: 320px;
+  padding: 0.8rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+.calculate-button:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Ventana de resultados */
+.results-window {
+  position: relative;
+  padding: 1.5rem;
+  background-color: #0f172a;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  margin-top: 1rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+/* Botón de volver */
+.back-button {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+.back-button:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(37, 99, 235, 0.3);
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0.5rem;
+  }
+
+  .title-container {
+    width: 100%;
+    max-width: none;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: none;
+    flex-direction: column;
+    margin-top: 0.5rem;
+  }
+
+  .input-section {
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .instructions-column,
+  .input-column,
+  .combined-column {
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .instructions,
+  .input-fields,
+  .data-prompt {
+    max-width: 100%;
+  }
+
+  .results-window {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #334155;
+  }
+}
+
+.mode-selector {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f7fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.mode-selector label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.mode-selector input[type="radio"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+.vlsm-input {
+  background-color: #f7fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e2e8f0;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vlsm-input h3 {
+  color: #3182ce;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.vlsm-input .description {
+  color: #718096;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.subnet-input-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.subnet-input-group input[type="text"] {
+  flex: 2;
+  min-width: 200px;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.subnet-input-group input[type="number"] {
+  flex: 1;
+  min-width: 150px;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.subnet-input-group input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.subnet-input-group button {
+  padding: 0.5rem 1rem;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.subnet-input-group button:hover {
+  background-color: #ff5252;
+}
+
+.vlsm-input > button {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.75rem;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin: 1rem auto;
+  display: block;
+}
+
+.vlsm-input > button:hover {
+  background-color: #2b6cb0;
+}
+
+@media (max-width: 768px) {
+  .subnet-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .subnet-input-group input[type="text"],
+  .subnet-input-group input[type="number"] {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .subnet-input-group button {
+    width: 100%;
+  }
+}
