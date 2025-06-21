@@ -20,7 +20,7 @@ function Resultados({ data }) {
     networkBinary,
     tipo,
     vlsmSubnets,
-    // Campos para subnetting tradicional
+    // Fields for traditional subnetting
     wildcard,
     wildcardBinary,
     originalNetwork,
@@ -50,7 +50,7 @@ function Resultados({ data }) {
   const subnetsToShow = isVLSM ? vlsmSubnets : (hasSubnets ? subnets.slice(0, 1000) : []);
   const isMask32 = mask === 32;
 
-  // Función para dividir la IP binaria en partes de red y host
+  // Function to split the binary IP into network and host parts
   const splitBinary = (binary, mask) => {
     if (!binary) return <span className={styles.networkPart}>{'-'}</span>;
     const octets = binary.split('.');
@@ -68,32 +68,32 @@ function Resultados({ data }) {
 
   return (
     <div className={styles.calculationResults}>
-      <h2>Resultados del Cálculo</h2>
+      <h2>Calculation Results</h2>
       <p className={styles.intro}>
-        Aquí puedes ver los detalles de tu red y las subredes generadas.
+        Here you can see the details of your network and the generated subnets.
       </p>
 
       <div className={`${styles.card} ${styles.classfulCard}`}>
-        <h3>Información de la Red Principal</h3>
+        <h3>Main Network Information</h3>
         <p className={styles.description}>
           {isMask32 
-            ? "Una máscara /32 indica un único host, usado para configuraciones como rutas estáticas."
-            : "Esta sección muestra la información básica de la red original antes de cualquier división en subredes."
+            ? "A /32 mask indicates a single host, used for configurations like static routes."
+            : "This section shows the basic information of the original network before any subnetting."
           }
         </p>
         <p>
-          <strong>Dirección IP:</strong> {originalIp || '-'}{' '}
+          <strong>IP Address:</strong> {originalIp || '-'}{' '}
           <span className={styles.binary}>{splitBinary(originalIpBinary, mask)}</span>
-          <span className={styles.tooltip} data-tooltip="Identificador único para un dispositivo en la red">
+          <span className={styles.tooltip} data-tooltip="Unique identifier for a device on the network">
             ⓘ
           </span>
         </p>
         <p>
-          <strong>Máscara de Red:</strong> /{mask || '-'} ({maskDecimal || '-'}) {maskBinary || '-' }
+          <strong>Network Mask:</strong> /{mask || '-'} ({maskDecimal || '-'}) {maskBinary || '-' }
           <span className={styles.tooltip} data-tooltip={
             isMask32 
-              ? "Define que esta IP es un único host"
-              : "Define la parte de red y host de la IP"
+              ? "Defines that this IP is a single host"
+              : "Defines the network and host portion of the IP"
           }>
             ⓘ
           </span>
@@ -102,27 +102,27 @@ function Resultados({ data }) {
           <>
             <p>
               <strong>Wildcard:</strong> {wildcard || '-'} {wildcardBinary || '-' }
-              <span className={styles.tooltip} data-tooltip="Inverso de la máscara, usado en configuraciones de red">
+              <span className={styles.tooltip} data-tooltip="Inverse of the mask, used in network configurations">
                 ⓘ
               </span>
             </p>
             <p>
-              <strong>Red:</strong> {originalNetwork || originalIp || '-'} {originalNetworkBinary || originalIpBinary || '-'}
+              <strong>Network:</strong> {originalNetwork || originalIp || '-'} {originalNetworkBinary || originalIpBinary || '-'}
               <span className={styles.tooltip} data-tooltip={
                 isMask32 
-                  ? "Dirección única del host"
-                  : "Primera dirección de la red, no asignable a dispositivos"
+                  ? "Unique address of the host"
+                  : "First address of the network, not assignable to devices"
               }>
                 ⓘ
               </span>
             </p>
             <p>
-              <strong>Hosts por Red:</strong> {totalHostsOriginal || '0'}
+              <strong>Hosts per Network:</strong> {totalHostsOriginal || '0'}
             </p>
           </>
         )}
         <p>
-          <strong>Tipo de IP:</strong> {tipo || 'Desconocido'}
+          <strong>IP Type:</strong> {tipo || 'Unknown'}
         </p>
       </div>
 
@@ -130,72 +130,72 @@ function Resultados({ data }) {
         <>
           {!isVLSM && (
             <div className={`${styles.card} ${styles.subnetCard}`}>
-              <h3>Subredes después de la transición de /{mask} a /{subnetMask}</h3>
+              <h3>Subnets after transitioning from /{mask} to /{subnetMask}</h3>
               <p className={styles.description}>
-                Aquí se presentan los detalles de las nuevas subredes creadas a partir de la red original.
+                Here are the details of the new subnets created from the original network.
               </p>
               <p>
-                <strong>Máscara de Subred:</strong> /{subnetMask} ({subnetMaskDecimal}) {subnetMaskBinary}
+                <strong>Subnet Mask:</strong> /{subnetMask} ({subnetMaskDecimal}) {subnetMaskBinary}
               </p>
               <p>
                 <strong>Wildcard:</strong> {SubnetWildcard} {SubnetWildcardBinary}
               </p>
               <p>
-                <strong>Salto entre Subredes:</strong> {subnetIncrement} direcciones
+                <strong>Subnet Increment:</strong> {subnetIncrement} addresses
               </p>
               <p>
-                <strong>Total de Subredes:</strong> {totalSubnets} subredes
+                <strong>Total Subnets:</strong> {totalSubnets} subnets
               </p>
               <p>
-                <strong>Hosts por Subred:</strong> {hostsPerSubnet}
+                <strong>Hosts per Subnet:</strong> {hostsPerSubnet}
               </p>
               <p>
-                <strong>Hosts Totales:</strong> {totalHostsAllSubnets}
+                <strong>Total Hosts:</strong> {totalHostsAllSubnets}
               </p>
             </div>
           )}
 
           <div className={styles.subnetList}>
-            <h3>{isVLSM ? 'Subredes VLSM' : 'Lista de Subredes'}</h3>
+            <h3>{isVLSM ? 'VLSM Subnets' : 'Subnet List'}</h3>
             <p className={styles.description}>
-              Esta tabla detalla cada subred con su rango de direcciones asignables.
+              This table details each subnet with its range of assignable addresses.
             </p>
             {!isVLSM && limitedSubnets && (
               <p className={styles.warning}>
-                Mostrando las primeras 1000 subredes de un total de {totalSubnets}.
+                Showing the first 1000 subnets out of a total of {totalSubnets}.
               </p>
             )}
             {subnetsToShow.map((subnet, index) => (
               <div className={styles.card} key={index}>
                 <p>
-                  <strong>{isVLSM ? subnet.name : `Subred ${subnet.index}`}:</strong>
+                  <strong>{isVLSM ? subnet.name : `Subnet ${subnet.index}`}:</strong>
                 </p>
                 {isVLSM && (
                   <p>
-                    <strong>Hosts Requeridos:</strong> {subnet.hosts}
+                    <strong>Required Hosts:</strong> {subnet.hosts}
                   </p>
                 )}
                 <p>
-                  <strong>Máscara:</strong> {isVLSM ? `/${subnet.mask}` : `/${subnetMask}`} ({isVLSM ? subnet.maskDecimal : subnetMaskDecimal})
+                  <strong>Mask:</strong> {isVLSM ? `/${subnet.mask}` : `/${subnetMask}`} ({isVLSM ? subnet.maskDecimal : subnetMaskDecimal})
                 </p>
                 <p>
-                  <strong>Red:</strong> {subnet.network || subnet.red}{' '}
+                  <strong>Network:</strong> {subnet.network || subnet.red}{' '}
                   <span className={styles.binary}>{splitBinary(subnet.networkBinary || subnet.redBinary, isVLSM ? subnet.mask : subnetMask)}</span>
                 </p>
                 <p>
-                  <strong>HostMin:</strong> {subnet.firstHost || subnet.hostmin} {subnet.firstHostBinary || subnet.hostminBinary}
+                  <strong>First Host:</strong> {subnet.firstHost || subnet.hostmin} {subnet.firstHostBinary || subnet.hostminBinary}
                 </p>
                 <p>
-                  <strong>HostMax:</strong> {subnet.lastHost || subnet.hostmax} {subnet.lastHostBinary || subnet.hostmaxBinary}
+                  <strong>Last Host:</strong> {subnet.lastHost || subnet.hostmax} {subnet.lastHostBinary || subnet.hostmaxBinary}
                 </p>
                 <p>
                   <strong>Broadcast:</strong> {subnet.broadcast} {subnet.broadcastBinary}
                 </p>
                 <p>
-                  <strong>Hosts por Subred:</strong> {isVLSM ? subnet.totalHosts : hostsPerSubnet}
+                  <strong>Hosts per Subnet:</strong> {isVLSM ? subnet.totalHosts : hostsPerSubnet}
                 </p>
                 <p>
-                  <strong>Tipo de IP:</strong> {tipo}
+                  <strong>IP Type:</strong> {tipo}
                 </p>
               </div>
             ))}
@@ -206,8 +206,8 @@ function Resultados({ data }) {
       {!hasSubnets && (
         <p className={styles.noSubnets}>
           {isVLSM 
-            ? "No se calcularon subredes porque no se proporcionaron subredes VLSM."
-            : "No se calcularon subredes porque no se proporcionó una máscara de subred."}
+            ? "No subnets were calculated because no VLSM subnets were provided."
+            : "No subnets were calculated because no subnet mask was provided."}
         </p>
       )}
     </div>

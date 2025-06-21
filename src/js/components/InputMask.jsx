@@ -30,7 +30,7 @@ function InputMask({ label, value, onChange }) {
           fontSize: '1rem',
           maxWidth: '300px',
         }}
-        placeholder="Ej: 24"
+        placeholder="E.g., 24"
       />
     </div>
   );

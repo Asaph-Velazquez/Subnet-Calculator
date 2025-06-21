@@ -1,51 +1,52 @@
-# Subnet Calculator subnet-calculator  subnet-calculator
+# Subnet Calculator
+
 <div align="center">
-  <img src="URL_DEL_GIF_O_IMAGEN_AQUI" alt="Demostración de la Calculadora de Subredes" width="600"/>
+  <img src="URL_FOR_GIF_OR_IMAGE_HERE" alt="Subnet Calculator Demo" width="600"/>
 </div>
 
-## 📝 Descripción
+## 📝 Description
 
-**Subnet Calculator** es una herramienta web sencilla y eficaz, creada con React, para realizar cálculos de redes IPv4. Permite a los administradores de redes, estudiantes y entusiastas de TI planificar y analizar direccionamiento IP de forma rápida y sin errores.
+**Subnet Calculator** is a simple and effective web tool built with React for performing IPv4 network calculations. It allows network administrators, students, and IT enthusiasts to plan and analyze IP addressing quickly and accurately.
 
-## ✨ Características
+## ✨ Features
 
-- **Cálculo de Dirección de Red:** Obtiene la dirección de inicio de la subred.
-- **Rango de Hosts:** Determina el rango de direcciones IP utilizables para los dispositivos.
-- **Dirección de Broadcast:** Calcula la dirección de broadcast de la subred.
-- **Máscara de Subred:** Soporta notación decimal (ej. 255.255.255.0) y CIDR (ej. /24).
-- **Cálculos de VLSM:** (Variable Length Subnet Masking) para una planificación de red eficiente.
-- **Interfaz Intuitiva:** Diseño limpio y fácil de usar para obtener resultados al instante.
+- **Network Address Calculation:** Gets the starting address of the subnet.
+- **Host Range:** Determines the range of usable IP addresses for devices.
+- **Broadcast Address:** Calculates the subnet's broadcast address.
+- **Subnet Mask:** Supports both decimal notation (e.g., 255.255.255.0) and CIDR notation (e.g., /24).
+- **VLSM Calculations:** (Variable Length Subnet Masking) for efficient network planning.
+- **Intuitive Interface:** Clean and user-friendly design to get results instantly.
 
-## 🚀 Instalación y Uso
+## 🚀 Installation and Usage
 
-Sigue estos pasos para ejecutar el proyecto en tu máquina local:
+Follow these steps to run the project on your local machine:
 
-1.  **Clona el repositorio:**
+1.  **Clone the repository:**
     ```bash
     git clone https://github.com/Asaph-Velazquez/Subnet-Calculator.git
     ```
 
-2.  **Navega al directorio del proyecto:**
+2.  **Navigate to the project directory:**
     ```bash
     cd Subnet-Calculator
     ```
 
-3.  **Instala las dependencias:**
+3.  **Install dependencies:**
     ```bash
     npm install
     ```
 
-4.  **Inicia la aplicación:**
+4.  **Start the application:**
     ```bash
     npm start
     ```
-    La aplicación se abrirá en [http://localhost:3000](http://localhost:3000).
+    The application will open at [http://localhost:3000](http://localhost:3000).
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Technologies Used
 
-- [React](https://reactjs.org/) - Biblioteca de JavaScript para construir interfaces de usuario.
-- [Tailwind CSS](https://tailwindcss.com/) - Framework de CSS para un diseño rápido y moderno (si aplica).
-- [CSS Modules](https://github.com/css-modules/css-modules) - Para estilos encapsulados por componente.
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces.
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework for rapid UI development (if applicable).
+- [CSS Modules](https://github.com/css-modules/css-modules) - For locally scoped CSS.
 
 ---
-Creado con ❤️ por [Asaph Velazquez](https://github.com/Asaph-Velazquez)
+Built with ❤️ by [Asaph Velazquez](https://github.com/Asaph-Velazquez)

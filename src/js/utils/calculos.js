@@ -26,13 +26,13 @@ function calcularSubred(ip, mask, subnetMask) {
     ipParts.some((part) => part === '' || ip.split('.').includes(''))
   ) {
     console.error('Invalid IP address:', ip);
-    return { error: 'Dirección IP no válida' };
+    return { error: 'Invalid IP address' };
   }
 
   // Validate mask
   if (isNaN(mask) || mask < 1 || mask > 32) {
     console.error('Invalid mask:', mask);
-    return { error: 'Máscara de red no válida.' };
+    return { error: 'Invalid network mask.' };
   }
 
   // Convert IP to integer
@@ -116,7 +116,7 @@ function calcularSubred(ip, mask, subnetMask) {
     if (subnetMask) {
       if (isNaN(subnetMask) || subnetMask < mask || subnetMask > 32) {
         console.error('Invalid subnet mask:', subnetMask);
-        return { error: 'Máscara de subred no válida' };
+        return { error: 'Invalid subnet mask' };
       }
       const subnetMaskInt = (-1 << (32 - subnetMask)) >>> 0;
       result.subnetMask = subnetMask;
@@ -170,7 +170,7 @@ function calcularSubred(ip, mask, subnetMask) {
 
   if (isNaN(subnetMask) || subnetMask < mask || subnetMask > 32) {
     console.error('Invalid subnet mask:', subnetMask);
-    return { error: 'Máscara de subred no válida' };
+    return { error: 'Invalid subnet mask' };
   }
 
   const subnetMaskInt = (-1 << (32 - subnetMask)) >>> 0;
@@ -287,94 +287,93 @@ function intToBinary(int) {
 }
 
 function getIpClass(firstOctet) {
-  if (firstOctet >= 1 && firstOctet <= 126) return 'Clase A';
-  if (firstOctet >= 128 && firstOctet <= 191) return 'Clase B';
-  if (firstOctet >= 192 && firstOctet <= 223) return 'Clase C';
-  if (firstOctet >= 224 && firstOctet <= 239) return 'Clase D';
-  if (firstOctet >= 240 && firstOctet <= 254) return 'Clase E';
-  return 'Desconocida';
+  if (firstOctet >= 1 && firstOctet <= 126) return 'A';
+  if (firstOctet >= 128 && firstOctet <= 191) return 'B';
+  if (firstOctet >= 192 && firstOctet <= 223) return 'C';
+  if (firstOctet >= 224 && firstOctet <= 239) return 'D (Multicast)';
+  if (firstOctet >= 240 && firstOctet <= 255) return 'E (Experimental)';
+  return 'Unknown';
 }
 
-function calcularVLSM(ip, mask, subnets) {
-  // Validar IP y máscara
+export function calcularVLSM(ip, mask, subnets) {
+  // Validate IP and mask
   const ipParts = ip.split('.').map(Number);
   if (
     ipParts.length !== 4 ||
-    ipParts.some((part) => isNaN(part) || part < 0 || part > 255) ||
-    ipParts.some((part) => part === '' || ip.split('.').includes(''))
+    ipParts.some(p => isNaN(p) || p < 0 || p > 255)
   ) {
-    return { error: 'Dirección IP no válida' };
+    return { error: 'Invalid IP address' };
   }
 
-  if (isNaN(mask) || mask < 1 || mask > 32) {
-    return { error: 'Máscara de red no válida.' };
+  if (isNaN(mask) || mask < 1 || mask > 30) {
+    return { error: 'Invalid network mask for VLSM (must be between 1 and 30)' };
   }
 
-  // Ordenar subredes por número de hosts (de mayor a menor)
-  const sortedSubnets = [...subnets].sort((a, b) => b.hosts - a.hosts);
+  // Validate subnets
+  if (!subnets || subnets.length === 0 || subnets.every(s => !s.hosts || s.hosts <= 0)) {
+    return { error: 'Please define at least one subnet with a valid number of hosts.' };
+  }
 
-  // Convertir IP a entero
+  // Filter out invalid subnets and sort by host count descending
+  const validSubnets = subnets
+    .filter(s => s.hosts && s.hosts > 0)
+    .sort((a, b) => b.hosts - a.hosts);
+
+  if (validSubnets.length === 0) {
+    return { error: 'No valid subnets to calculate.' };
+  }
+
   const ipInt = ipParts.reduce((acc, part) => (acc << 8) | part, 0) >>> 0;
   const networkMask = (-1 << (32 - mask)) >>> 0;
-  const networkInt = ipInt & networkMask;
+  let currentIpInt = ipInt & networkMask;
 
-  // Calcular subredes
-  let currentNetwork = networkInt;
+  const totalAvailableHosts = Math.pow(2, 32 - mask);
+  let totalRequiredHosts = 0;
+
   const vlsmSubnets = [];
 
-  for (const subnet of sortedSubnets) {
-    const hosts = parseInt(subnet.hosts);
-    if (isNaN(hosts) || hosts < 1) {
-      return { error: `Número de hosts inválido para la subred ${subnet.name}` };
+  for (const subnet of validSubnets) {
+    const requiredHosts = Number(subnet.hosts);
+    const requiredSize = requiredHosts + 2; // for network and broadcast
+    const neededMask = 32 - Math.ceil(Math.log2(requiredSize));
+    
+    if (neededMask > 32) {
+      return { error: `Subnet "${subnet.name}" requires more hosts than available in IPv4.` };
     }
+    
+    const subnetSize = Math.pow(2, 32 - neededMask);
+    totalRequiredHosts += subnetSize;
 
-    // Calcular máscara necesaria para el número de hosts
-    const requiredBits = Math.ceil(Math.log2(hosts + 2)); // +2 para red y broadcast
-    const subnetMask = 32 - requiredBits;
-
-    if (subnetMask < mask) {
-      return { error: `No hay suficientes hosts disponibles para la subred ${subnet.name}` };
-    }
-
-    // Calcular información de la subred
-    const subnetMaskInt = (-1 << (32 - subnetMask)) >>> 0;
-    const subnetNetwork = intToIp(currentNetwork);
-    const subnetBroadcast = intToIp(currentNetwork | (~subnetMaskInt >>> 0));
-    const firstHost = intToIp(currentNetwork + 1);
-    const lastHost = intToIp((currentNetwork | (~subnetMaskInt >>> 0)) - 1);
-
-    vlsmSubnets.push({
+    const newSubnet = {
       name: subnet.name,
-      hosts: hosts,
-      mask: subnetMask,
-      maskDecimal: intToIp(subnetMaskInt),
-      network: subnetNetwork,
-      broadcast: subnetBroadcast,
-      firstHost: firstHost,
-      lastHost: lastHost,
-      networkBinary: intToBinary(currentNetwork),
-      broadcastBinary: intToBinary(currentNetwork | (~subnetMaskInt >>> 0)),
-      firstHostBinary: intToBinary(currentNetwork + 1),
-      lastHostBinary: intToBinary((currentNetwork | (~subnetMaskInt >>> 0)) - 1),
-      totalHosts: Math.pow(2, 32 - subnetMask) - 2
-    });
+      hosts: requiredHosts,
+      mask: neededMask,
+      maskDecimal: intToIp((-1 << (32 - neededMask)) >>> 0),
+      network: intToIp(currentIpInt),
+      networkBinary: intToBinary(currentIpInt),
+      firstHost: intToIp(currentIpInt + 1),
+      firstHostBinary: intToBinary(currentIpInt + 1),
+      lastHost: intToIp(currentIpInt + subnetSize - 2),
+      lastHostBinary: intToBinary(currentIpInt + subnetSize - 2),
+      broadcast: intToIp(currentIpInt + subnetSize - 1),
+      broadcastBinary: intToBinary(currentIpInt + subnetSize - 1),
+      totalHosts: subnetSize - 2,
+    };
+    vlsmSubnets.push(newSubnet);
 
-    // Actualizar la dirección de red para la siguiente subred
-    currentNetwork = (currentNetwork | (~subnetMaskInt >>> 0)) + 1;
+    currentIpInt += subnetSize;
+  }
+
+  if (totalRequiredHosts > totalAvailableHosts) {
+    return { error: 'The total number of required hosts exceeds the available hosts in the main network.' };
   }
 
   return {
     originalIp: ip,
-    originalIpBinary: intToBinary(ipInt),
     mask: mask,
-    maskDecimal: intToIp(networkMask),
-    maskBinary: intToBinary(networkMask),
-    network: intToIp(networkInt),
-    networkBinary: intToBinary(networkInt),
     tipo: getIpClass(ipParts[0]),
-    vlsmSubnets
+    vlsmSubnets,
   };
 }
 
-export { calcularVLSM };
 export default calcularSubred;
